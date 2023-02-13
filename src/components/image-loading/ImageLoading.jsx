@@ -24,11 +24,9 @@ const ImageLoading = ({ src }) => {
       />
       <div
         className="spinner"
-        style={
-          {
-            // display: loading ? "block" : "none",
-          }
-        }
+        style={{
+          display: loading ? "block" : "none",
+        }}
       >
         <Loader />
       </div>

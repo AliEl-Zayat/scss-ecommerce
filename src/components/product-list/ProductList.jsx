@@ -8,14 +8,13 @@ import SingleProduct from "../single-product/SingleProduct";
 import SkeletonLoading from "../image-loading/SkeletonLoading";
 import { formatPrice } from "../../helpers/Helpers";
 import { fetchProductsByCategory } from "../../store/categorySlice";
+import ImageLoading from "../image-loading/ImageLoading";
 const ProductList = ({ products, status }) => {
   const dispatch = useDispatch();
   const { isModalVisible } = useSelector((state) => state.modal);
   const viewModalHandler = (data) => {
     dispatch(setModalData(data));
     dispatch(setIsModalVisible(true));
-    dispatch(fetchProductsByCategory(1, "all"));
-    dispatch(fetchProductsByCategory(2, "all"));
   };
   if (STATUS === STATUS.ERROR) return <Error />;
   if (STATUS === STATUS.LOADING) return <Loader />;
@@ -27,19 +26,18 @@ const ProductList = ({ products, status }) => {
         <div className="product-content">
           <div className="section-title">
             <h3 className="text-uppercase fw-7 text-regal-blue ls-1">
-              Products
+              Our Products
             </h3>
           </div>
           <div className="product-items grid">
-            {products && console.log("logged")}
-            {/* {products.slice(0, 20).map((product) => (
+            {products.slice(0, 20).map((product) => (
               <div
                 className="product-item bg-white"
                 key={product.id}
                 onClick={() => viewModalHandler(product)}
               >
                 <div className="product-item-img">
-                  <img src={product.images[0]} alt="" />
+                  <ImageLoading src={product.images} alt="" />
                   <div className="product-item-cat text-white fs-13 text-uppercase bg-gold fw-6">
                     {product.category.name}
                   </div>
@@ -53,7 +51,7 @@ const ProductList = ({ products, status }) => {
                   </div>
                 </div>
               </div>
-            ))} */}
+            ))}
           </div>
         </div>
       </div>

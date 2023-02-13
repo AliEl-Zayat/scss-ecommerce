@@ -16,7 +16,7 @@ const Home = () => {
     (state) => state.category
   );
   const { data: products, status: productStatus } = useSelector(
-    (state) => state.category
+    (state) => state.product
   );
   const { catProductAll: productsByCategory, catProductAllStatus } =
     useSelector((state) => state.category);

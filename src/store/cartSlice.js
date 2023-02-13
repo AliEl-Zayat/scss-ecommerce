@@ -22,11 +22,23 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart(state, action) {
-      const productItem = action.payload;
-      // const tempItem = state.data.find((item) => item.id === action.payload.id);
-      const tempCart = state.data;
-      // state.data.push(action.payload);
-      storeInLocalStorage(...tempCart, productItem);
+      const tempItem = state.data.find((item) => item.id === action.payload.id);
+      if (tempItem) {
+        const tempCart = state.data.map((item) => {
+          if (item.id === action.payload.id) {
+            let newQty = item.quantity + action.payload.quantity;
+            let newTotalPrice = newQty * item.price;
+            return { ...item, quantity: newQty, totalPrice: newTotalPrice };
+          } else {
+            return item;
+          }
+        });
+        state.data = tempCart;
+        storeInLocalStorage(state.data);
+      } else {
+        state.data.push(action.payload);
+        storeInLocalStorage(state.data);
+      }
     },
     removeFromCart(state, action) {
       const tempCart = state.data.filter((item) => item.id !== action.payload);

@@ -1,17 +1,26 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatPrice } from "../../helpers/Helpers";
-import SingleProduct from "../single-product/SingleProduct";
-import Error from "../error/Error";
-import Loader from "../loader/Loader";
+import { setIsModalVisible, setModalData } from "../../store/modalSlice";
 import { STATUS } from "../../utils/status";
+import Error from "../error/Error";
+import SkeletonLoading from "../image-loading/SkeletonLoading";
+import Loader from "../loader/Loader";
+import SingleProduct from "../single-product/SingleProduct";
 import "./SingleCategory.scss";
+
 const SingleCategory = ({ products, status }) => {
+  const dispatch = useDispatch();
+  const { isModalVisible } = useSelector((state) => state.modal);
+  const viewModalHandler = (data) => {
+    dispatch(setModalData(data));
+    dispatch(setIsModalVisible(true));
+  };
   if (status === STATUS.ERROR) return <Error />;
   if (status === STATUS.LOADING) return <Loader />;
-
   return (
     <section className="cat-single py-5 bg-ghost-white">
+      {isModalVisible && <SingleProduct />}
       <div className="container">
         <div className="cat-single-content">
           <div className="section-title">
@@ -21,9 +30,14 @@ const SingleCategory = ({ products, status }) => {
           </div>
           <div className="product-items grid">
             {products.map((product) => (
-              <div className="product-item bg-white" key={product.id}>
+              <div
+                className="product-item bg-white"
+                key={product.id}
+                onClick={() => viewModalHandler(product)}
+              >
                 <div className="product-item-img">
-                  <img src={product.images[0]} alt="" />
+                  {<SkeletonLoading src={product.images[0]} alt="" />}
+                  {/* <img src={product.images[0]} alt="" /> */}
                   <div className="product-item-cat text-white fs-13 text-uppercase bg-gold fw-6">
                     {product.category.name}
                   </div>

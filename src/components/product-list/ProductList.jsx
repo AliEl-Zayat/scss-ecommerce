@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Error from "../error/Error";
 import Loader from "../loader/Loader";
 import SingleProduct from "../single-product/SingleProduct";
-import SkeletonLoading from "../image-loading/SkeletonLoading";
 import { formatPrice } from "../../helpers/Helpers";
 import { fetchProductsByCategory } from "../../store/categorySlice";
 import ImageLoading from "../image-loading/ImageLoading";

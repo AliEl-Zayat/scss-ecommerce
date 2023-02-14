@@ -5,17 +5,18 @@ const fetchFromLocalStorage = () => {
   if (cart) {
     return JSON.parse(localStorage.getItem("cart"));
   } else {
-    return {};
+    return [];
   }
 };
 
 const storeInLocalStorage = (data) => {
   localStorage.setItem("cart", JSON.stringify(data));
 };
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    data: fetchFromLocalStorage,
+    data: fetchFromLocalStorage(),
     totalItems: 0,
     totalAmount: 0,
     deliveryCharge: 1000,

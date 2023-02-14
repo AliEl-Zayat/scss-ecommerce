@@ -3,14 +3,12 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.scss";
 import Layout from "./pages/Layout";
-import Category from "./components/category/Category";
 import Cart from "./components/cart/Cart";
 import Home from "./pages/home/Home";
 import store from "./store/store";
 import { Provider } from "react-redux";
 // Demo Call Start
-import SingleCategory from "./components/single-category/SingleCategory";
-import ImageLoading from "./components/image-loading/ImageLoading";
+import Categories from "./pages/category/CategoriesPage";
 // Demo Call End
 const router = createBrowserRouter([
   {
@@ -19,14 +17,9 @@ const router = createBrowserRouter([
     errorElement: null,
     children: [
       { index: true, element: <Home /> },
-      { path: "/category/:id", element: <Category /> },
+      { path: "/category/:id", element: <Categories /> },
       { path: "/cart", element: <Cart /> },
-      {
-        path: "/demo",
-        element: (
-          <ImageLoading src="https://images.pexels.com/photos/13297056/pexels-photo-13297056.jpeg?cs=srgb&dl=pexels-addy-bronzzz-13297056.jpg&fm=jpg&w=7952&h=5304" />
-        ),
-      },
+      { path: "/demo/:id", element: <Categories /> },
     ],
   },
 ]);
